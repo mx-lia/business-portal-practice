@@ -1,0 +1,92 @@
+<form [formGroup]="userForm" (ngSubmit)="submit()">
+  <h1 mat-dialog-title>
+    <strong *ngIf="data.action=='Add'">{{'USER.ADD_USER' | translate}}</strong>
+    <strong *ngIf="data.action=='Update'">{{'USER.EDIT_USER' | translate}}</strong>
+    <strong *ngIf="data.action=='Delete'">{{'USER.DELETE_USER' | translate}}</strong>
+  </h1>
+  <div mat-dialog-content>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-evenly"
+      *ngIf="data.action != 'Delete'; else elseTemplate"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>{{'USER.EMAIL' | translate}}</mat-label>
+        <input matInput formControlName="email" placeholder="Email" />
+        <mat-error *ngIf="userForm.controls['email'].hasError('required')">
+          {{'INPUT.ERROR.REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+          {{'INPUT.ERROR.INVALID_EMAIL' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'USER.USERNAME' | translate}}</mat-label>
+        <input matInput formControlName="userName" placeholder="Username" />
+        <mat-error *ngIf="userForm.controls['userName'].hasError('required')">
+          {{'INPUT.ERROR.REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['userName'].hasError('minlength')">
+          {{'INPUT.ERROR.USERNAME_MIN' | translate}}
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['userName'].hasError('maxlength')">
+          {{'INPUT.ERROR.USERNAME_MAX' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'USER.ROLE' | translate}}</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of keys" [value]="roles[role]">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'USER.PASSWORD' | translate}}</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Password" />
+        <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        <mat-error *ngIf="userForm.controls['password'].hasError('required')">
+          {{'INPUT.ERROR.REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">
+          {{'INPUT.ERROR.PASSWORD_MIN' | translate}}
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['password'].hasError('maxlength')">
+          {{'INPUT.ERROR.PASSWORD_MAX' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'USER.CONFIRM_PASSWORD' | translate}}</mat-label>
+        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Confirm Password" />
+        <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="userForm.controls['confirmPassword'].hasError('required')">
+          {{'INPUT.ERROR.REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="userForm.controls['confirmPassword'].hasError('confirmedValidator')">
+          {{'INPUT.ERROR.PASSWORDS_MATCH' | translate}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+      {{'WARNING.DELETE_USER' | translate}} <b> {{ data.user.email }} </b>
+    </ng-template>
+  </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="userForm.invalid" *ngIf="data.action=='Add'">
+      {{'BUTTON.ADD' | translate}}
+    </button>
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="userForm.invalid" *ngIf="data.action=='Update'">
+      {{'BUTTON.EDIT' | translate}}
+    </button>
+    <button mat-button mat-flat-button color="accent" type="submit" [disabled]="userForm.invalid" *ngIf="data.action=='Delete'">
+      {{'BUTTON.DELETE' | translate}}
+    </button>
+    <button mat-button mat-dialog-close>
+      {{'BUTTON.CANCEL' | translate}}
+    </button>
+  </div>
+</form>

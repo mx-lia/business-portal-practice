@@ -1,0 +1,118 @@
+<div>
+	<app-loader></app-loader>
+
+<div class="navbar-container">
+
+  <mat-toolbar class="navbar" color="primary">
+
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a class="navbar-brand" [routerLink]="['/']" matTooltip="Home">
+      <h1>
+        {{'MAIN.TITLE' | translate}}
+      </h1>
+    </a>
+
+    <span class="navbar-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="languageMenu">
+      <mat-icon>language</mat-icon>
+      <span fxHide.xs >
+        {{'LANGUAGE.CHANGE' | translate}}
+      </span>
+    </button>
+    <mat-menu #languageMenu="matMenu" xPosition="before" yPosition="above">
+      <button mat-menu-item (click)="changeLang('en')">
+        <span>{{'LANGUAGE.NAME.EN' | translate}}</span>
+      </button>
+
+      <button mat-menu-item (click)="changeLang('ru')">
+        <span>{{'LANGUAGE.NAME.RU' | translate}}</span>
+      </button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon>
+      <span fxHide.xs >
+        {{userName}}
+      </span>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above">
+
+      <a mat-menu-item [routerLink]="['/profile']">
+        <mat-icon>person</mat-icon>
+        <span>{{'MAIN.PROFILE' | translate}}</span>
+      </a>
+
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>{{'MAIN.LOG_OUT' | translate}}</span>
+      </button>
+
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="navbar-sidenav-container">
+    <mat-sidenav [autoFocus]="false" #snav fixedTopGap="56" class="sidenav">
+
+      <mat-nav-list>
+        <h3 mat-subheader>{{'MAIN.MAIN' | translate}}</h3>
+
+        <a mat-list-item [routerLink]="['/home']" routerLinkActive="active" (click)="snav.toggle()">
+          <mat-icon mat-list-icon>
+            home
+          </mat-icon>
+          <p mat-line> {{'MAIN.HOME' | translate}}  </p>
+        </a>
+
+        <a mat-list-item [routerLink]="['/salary']" routerLinkActive="active" (click)="snav.toggle()">
+          <mat-icon mat-list-icon>
+            attach_money
+          </mat-icon>
+          <p mat-line>{{'MAIN.SALARY_CALCULATION' | translate}}  </p>
+        </a>
+
+        <a mat-list-item [routerLink]="['/profile']" routerLinkActive="active" (click)="snav.toggle()">
+          <mat-icon mat-list-icon>
+            person
+          </mat-icon>
+          <p mat-line> {{'MAIN.PROFILE' | translate}}  </p>
+        </a>
+
+        <a mat-list-item [routerLink]="['/users']" routerLinkActive="active" *ngIf="isAdmin" (click)="snav.toggle()">
+          <mat-icon mat-list-icon>
+            people
+          </mat-icon>
+          <p mat-line> {{'MAIN.USERS' | translate}}  </p>
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <h3 mat-subheader>{{'MAIN.OTHER' | translate}} </h3>
+
+        <a mat-list-item [routerLink]="['/about']" routerLinkActive="active" (click)="snav.toggle()">
+          <mat-icon mat-list-icon>
+            info_outline
+          </mat-icon>
+          <p mat-line> {{'MAIN.ABOUT' | translate}}  </p>
+        </a>
+
+        <a mat-list-item (click)="logout()">
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+          <p mat-line> {{'MAIN.LOG_OUT' | translate}} </p>
+        </a>
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <div class="router-content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+</div>

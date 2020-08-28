@@ -1,0 +1,30 @@
+<div fxLayoutAlign="space-around center"
+     class="container2"
+     fxLayout.lt-md="column"
+     fxLayoutAlign.lt-md="center center"
+     [ngStyle.lt-md]="{width: '100%', padding: '10px'}"
+     [ngStyle.gt-xs]="{height: '100%', paddingLeft: '10%', paddingRight: '10%'}"
+>
+  <div [ngClass]="{listItem:true}" fxLayoutAlign="space-evenly center">
+    <app-user-info fxFill
+                   (dataChanged)="calculate($event)"
+    ></app-user-info>
+  </div>
+  <div [ngClass]="{listItem:true}" fxLayout="column" fxLayoutAlign="space-around center">
+    <app-result
+      fxFill
+      [title]="'From frontend'"
+      [salary]="frontendResponse"
+    ></app-result>
+    <app-result
+      fxFill
+      [title]="'From backend'"
+      [salary]="backendResponse"
+    ></app-result>
+    <div class="button-container">
+      <button mat-fab color="primary" aria-label="Send data in PDF" (click)="sendInPdf()">
+        <mat-icon>picture_as_pdf</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

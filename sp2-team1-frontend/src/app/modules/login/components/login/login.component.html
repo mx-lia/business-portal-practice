@@ -1,0 +1,39 @@
+<div class="container login-container" fxLayout="row" fxLayoutAlign="center center">
+  <form [formGroup]="loginForm">
+    <mat-card>
+      <mat-card-title fxLayoutAlign="center">{{'LOGIN.LOGIN' | translate}}</mat-card-title>
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <mat-label>{{'USER.USERNAME' | translate}}</mat-label>
+          <input matInput formControlName="username">
+          <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+            {{'INPUT.ERROR.REQUIRED' | translate}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>{{'USER.PASSWORD' | translate}}</mat-label>
+          <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+            {{'INPUT.ERROR.REQUIRED' | translate}}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="full-width">
+          <mat-checkbox formControlName="rememberMe" color="primary">{{'LOGIN.REMEMBER_ME' | translate}}</mat-checkbox>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions class="login-actions">
+        <button mat-raised-button id="login" (click)="login()" color="primary"
+          [disabled]="loginForm.invalid || loading">{{'LOGIN.LOGIN' | translate}}</button>
+        <button mat-button id="resetPassword" (click)="resetPassword()" type="button">{{'LOGIN.RESET_PASSWORD' | translate}}</button>
+        <button mat-button id="register" (click)="register()" type="button">{{'LOGIN.REGISTER' | translate}}</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </form>
+</div>

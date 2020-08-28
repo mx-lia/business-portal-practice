@@ -1,0 +1,42 @@
+.navbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .navbar {
+    z-index: 2;
+  }
+
+  .navbar-brand {
+    text-decoration: none;
+    color: white;
+  }
+
+  .navbar-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .navbar-sidenav-container {
+    flex: 1;
+  }
+
+  .active {
+    background: rgba(0, 0, 0, .04);
+  }
+
+  .sidenav-content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display:flex;
+    place-content: stretch center;
+  }
+
+  .router-content {
+    flex: 1 1 100%;
+    max-width: 95%;
+  }

@@ -1,0 +1,81 @@
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <button
+      mat-button
+      mat-flat-button
+      color="primary"
+      (click)="openDialog({action: 'Add', user: null})"
+    >
+    {{'USER.NEW' | translate}}
+    </button>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-icon class="search-icon">search</mat-icon>
+      <mat-form-field>
+        <mat-label>{{'USER.USERNAME' | translate}}</mat-label>
+        <input
+          #input
+          matInput
+          (keyup)="applyFilter($event)"
+        />
+
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8">
+    <div class="table-responsive">
+      <mat-table
+        matSort
+        matSortActive="id"
+        matSortDisableClear
+        matSortDirection="desc"
+        [dataSource]="users"
+        #mytable
+      >
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'USER.ID' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'USER.EMAIL' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'USER.USERNAME' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.userName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef>{{'USER.ROLE' | translate}}</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ roles[element.role] }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell class="right-mat-cell" *matCellDef="let element">
+            <a mat-button color="accent" (click)="openDialog({action: 'Update', user: element})">{{'BUTTON.EDIT' | translate}}</a>
+            |
+            <a mat-button color="accent" (click)="openDialog({action: 'Delete', user: element})">{{'BUTTON.DELETE' | translate}}</a>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            {{'DATAGRID.NO_DATA' | translate:input.value}}
+          </td>
+        </tr>
+      </mat-table>
+    </div>
+    <mat-paginator
+      [length]="resultsLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="pageSize = $event.pageSize"
+    ></mat-paginator>
+  </div>
+</div>

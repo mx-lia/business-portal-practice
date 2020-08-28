@@ -1,0 +1,17 @@
+mat-card {
+  font-size: 18px;
+}
+
+.salaryText {
+  font-size: 28px;
+  font-weight: bold;
+  background: whitesmoke;
+  padding: 2%;
+  border-radius: 5px;
+}
+
+.salaryBlock {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-size: 18px;
+}

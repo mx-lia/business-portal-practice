@@ -1,0 +1,10 @@
+.container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .login-container {
+    height: 80vh;
+  }
+  .login-actions {
+    margin-left: unset !important;
+  }

@@ -1,0 +1,7 @@
+mat-card {
+  border: rebeccapurple solid 2px;
+}
+
+mat-form-field, mat-checkbox, mat-card-actions {
+  font-size: 18px;
+}
